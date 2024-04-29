@@ -1,40 +1,35 @@
-import { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
+import Experience from './components/Experience'
+import { Suspense } from 'react'
+import { useProgress } from '@react-three/drei'
 
-function Box(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (ref.current.rotation.x += delta))
-  // Return the view, these are regular Threejs elements expressed in JSX
+const LoadingScreen = () => {
+  const { progress, active } = useProgress()
+
   return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}
-    >
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
+    <div className={`loading-screen ${active ? '' : 'loading-screen--hidden'}`}>
+      <div className="loading-screen__container">
+        <h1 className="loading-screen__title">Loading Experience</h1>
+        <div className="progress__container">
+          <div
+            className="progress__bar"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+      </div>
+    </div>
   )
 }
 
 export default function App() {
   return (
-    <Canvas>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-      <pointLight position={[-10, -10, -10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-      <OrbitControls />
-    </Canvas>
+    <>
+      <LoadingScreen />
+      <Canvas>
+        <Suspense>
+          <Experience />
+        </Suspense>
+      </Canvas>
+    </>
   )
 }
