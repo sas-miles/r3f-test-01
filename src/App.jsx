@@ -1,7 +1,8 @@
 import { Canvas } from '@react-three/fiber'
-import Experience from './components/Experience'
 import { Suspense } from 'react'
-import { useProgress } from '@react-three/drei'
+import { ScrollControls, useProgress } from '@react-three/drei'
+import LevelOne from './LevelOne/ExperienceOne'
+import { Leva } from 'leva'
 
 const LoadingScreen = () => {
   const { progress, active } = useProgress()
@@ -27,7 +28,9 @@ export default function App() {
       <LoadingScreen />
       <Canvas>
         <Suspense>
-          <Experience />
+          <ScrollControls pages={10} damping={0.4}>
+            <LevelOne />
+          </ScrollControls>
         </Suspense>
       </Canvas>
     </>

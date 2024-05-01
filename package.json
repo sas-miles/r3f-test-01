@@ -9,13 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.51.24",
+    "@react-three/drei": "^9.105.5",
     "@react-three/fiber": "^8.10.0",
+    "@use-gesture/react": "^10.3.1",
     "gsap": "^3.12.5",
+    "leva": "^0.9.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "three": "^0.148.0",
+    "three": "^0.164.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

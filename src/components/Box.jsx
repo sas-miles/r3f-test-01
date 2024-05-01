@@ -7,12 +7,6 @@ function Box(props) {
   const [hovered, setHovered] = useState(false)
   const { toggleModal } = useStore()
 
-  useFrame((state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x += delta
-    }
-  })
-
   const [clicked, setClicked] = useState(false)
 
   const handleClick = () => {
@@ -30,7 +24,7 @@ function Box(props) {
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
     >
-      <boxGeometry args={[1, 1, 1]} />
+      <boxGeometry args={[4, 4, 4]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
   )
